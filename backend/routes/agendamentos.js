@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/agendamentos.Controller');
+const controller = require('../controllers/agendamentosController');
 
 // Rota para métricas do dashboard
 router.get('/metricas', controller.getMetricas);
