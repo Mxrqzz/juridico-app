@@ -29,6 +29,13 @@ function loadData() {
 
 exports.getAll = (req, res) => {
   try {
+    if (req.query.page && isNaN(parseInt(req.query.page))) {
+      return res.status(400).json({ success: false, message: 'Parâmetro page inválido.' });
+    }
+    if (req.query.limit && isNaN(parseInt(req.query.limit))) {
+      return res.status(400).json({ success: false, message: 'Parâmetro limit inválido.' });
+    }
+
     let data = loadData();
     const { search, status, tipo, realizado } = req.query;
     const page = parseInt(req.query.page) || 1;
@@ -44,11 +51,9 @@ exports.getAll = (req, res) => {
           (a.organizacao && a.organizacao.toLowerCase().includes(q)),
       );
     }
-    if (status && status !== "todos")
-      data = data.filter((a) => a.status === status);
-    if (tipo && tipo !== "todos") data = data.filter((a) => a.tipo === tipo);
-    if (realizado && realizado !== "todos")
-      data = data.filter((a) => a.realizado === realizado);
+    if (status && status !== 'todos') data = data.filter((a) => a.status === status);
+    if (tipo && tipo !== 'todos') data = data.filter((a) => a.tipo === tipo);
+    if (realizado && realizado !== 'todos') data = data.filter((a) => a.realizado === realizado);
 
     const total = data.length;
     const totalPages = Math.ceil(total / limit);
@@ -61,12 +66,9 @@ exports.getAll = (req, res) => {
       pagination: { total, page, limit, totalPages },
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ success: false, message: "Erro interno do servidor" });
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
   }
 };
-
 exports.getMetricas = (req, res) => {
   try {
     const data = loadData();

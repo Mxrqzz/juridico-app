@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.send("API de Agendamentos está funcionando!");
 });
 
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Rota não encontrada." });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
