@@ -77,6 +77,7 @@ exports.getMetricas = (req, res) => {
     const realizados = data.filter((a) => a.realizado === "Sim").length;
     const naoRealizados = data.filter((a) => a.realizado === "Não").length;
     const semInfo = data.filter((a) => !a.realizado).length;
+    const receitaTotal = data.reduce((acc, a) => acc + (a.receita || 0), 0);
 
     const porMes = {};
     data.forEach((a) => {

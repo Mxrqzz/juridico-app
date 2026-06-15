@@ -38,6 +38,15 @@ export function Dashboard() {
               valor={metricas.semInfo}
               cor="#ff9800"
             />
+            <KPICard
+              titulo="Receita Total"
+              valor={
+                metricas.receitaTotal
+                  ? `R$ ${metricas.receitaTotal.toLocaleString("pt-BR")}`
+                  : "R$ 0,00"
+              }
+              cor="#c9a84c"
+            />
           </>
         )}
       </section>
