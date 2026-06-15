@@ -75,8 +75,7 @@ exports.getMetricas = (req, res) => {
 
     const total = data.length;
     const realizados = data.filter((a) => a.realizado === "Sim").length;
-    const naoRealizados = data.filter((a) => a.realizado === "Não").length;
-    const semInfo = data.filter((a) => !a.realizado).length;
+    const naoRealizados = data.filter((a) => a.realizado === "Não").length
     const receitaTotal = data.reduce((acc, a) => acc + (a.receita || 0), 0);
 
     const porMes = {};
@@ -104,7 +103,6 @@ exports.getMetricas = (req, res) => {
     const distribuicaoRealizado = [
       { name: "Realizado", value: realizados },
       { name: "Não Realizado", value: naoRealizados },
-      { name: "Sem informação", value: semInfo },
     ];
 
     res.json({
@@ -113,7 +111,6 @@ exports.getMetricas = (req, res) => {
         total,
         realizados,
         naoRealizados,
-        semInfo,
         evolucaoMensal,
         distribuicaoStatus,
         distribuicaoRealizado,

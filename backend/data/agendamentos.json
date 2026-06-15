@@ -9480,25 +9480,6 @@
       "Agendamento realizado": "Não",
       "Tipo": "Online",
       "Status": "Válido"
-    },
-    {
-      "Código do agendamento": null,
-      "Data do agendamento": null,
-      "Hora início": null,
-      "Hora fim": null,
-      "CPF do assistido": null,
-      "Nome do assistido": null,
-      "Organização": null,
-      "Serviço": null,
-      "Local": null,
-      "Responsável pelo agendamento": null,
-      "Criado por": null,
-      "Data de criação": null,
-      "Atualizado por": null,
-      "Data de atualização": null,
-      "Agendamento realizado": null,
-      "Tipo": null,
-      "Status": null
     }
   ]
 }

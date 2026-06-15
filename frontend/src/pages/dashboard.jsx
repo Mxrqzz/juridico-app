@@ -34,11 +34,6 @@ export function Dashboard() {
               cor="#f44336"
             />
             <KPICard
-              titulo="Sem Informação"
-              valor={metricas.semInfo}
-              cor="#ff9800"
-            />
-            <KPICard
               titulo="Receita Total"
               valor={
                 metricas.receitaTotal
