@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useAgendamentos } from "../hooks/useAgendamentos";
-import { getExportarCSV } from "../services/api";
+import { getExportarCSV, getAgendamentos} from "../services/api";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -38,31 +38,44 @@ export function TabelaAgendamentos() {
     }
   };
 
-  const exportarPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(14);
-    doc.text("Relatório de Agendamentos", 14, 15);
+ const exportarPDF = async () => {
+    try {
+      const params = {};
+      if (filters.search) params.search = filters.search;
+      if (filters.status !== 'todos') params.status = filters.status;
+      if (filters.tipo !== 'todos') params.tipo = filters.tipo;
+      if (filters.realizado !== 'todos') params.realizado = filters.realizado;
+      params.limit = 99999;
+      params.page = 1;
 
-    autoTable(doc, {
-      startY: 22,
-      head: [
-        ["ID", "Data", "Hora", "Cliente", "Advogado", "Realizado", "Status"],
-      ],
-      body: agendamentos.map((a) => [
-        a.id,
-        a.data ?? "-",
-        `${a.hora_inicio ?? "-"} - ${a.hora_fim ?? "-"}`,
-        a.cliente ?? "-",
-        a.advogado ?? "-",
-        a.realizado ?? "-",
-        a.status ?? "-",
-      ]),
-      styles: { fontSize: 8 },
-      headStyles: { fillColor: [79, 142, 247] },
-    });
+      const res = await getAgendamentos(params);
+      const todos = res.data.data;
 
-    doc.save("agendamentos.pdf");
-  };
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text('Relatório de Agendamentos', 14, 15);
+
+      autoTable(doc, {
+        startY: 22,
+        head: [['ID', 'Data', 'Hora', 'Cliente', 'Advogado', 'Realizado', 'Status']],
+        body: todos.map((a) => [
+          a.id,
+          a.data ?? '-',
+          `${a.hora_inicio ?? '-'} - ${a.hora_fim ?? '-'}`,
+          a.cliente ?? '-',
+          a.advogado ?? '-',
+          a.realizado ?? '-',
+          a.status ?? '-',
+        ]),
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [8, 53, 58] },
+      });
+
+      doc.save('agendamentos.pdf');
+    } catch {
+      alert('Erro ao exportar PDF.');
+    }
+};
 
   return (
     <div className="tabela-container">
@@ -89,7 +102,7 @@ export function TabelaAgendamentos() {
           onChange={(e) => updateFilter("realizado", e.target.value)}
           value={filters.realizado}
         >
-          <option value="todos">Todos os realizados</option>
+          <option value="todos">Todos os Agendamentos</option>
           <option value="Sim">Realizado</option>
           <option value="Não">Não Realizado</option>
         </select>
@@ -105,7 +118,7 @@ export function TabelaAgendamentos() {
           onChange={(e) => updateFilter("status", e.target.value)}
           value={filters.status}
         >
-          <option value="todos">Todos os status</option>
+          <option value="todos">Status</option>
           <option value="Válido">Válido</option>
           <option value="Cancelado">Cancelado</option>
         </select>
