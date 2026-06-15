@@ -3,6 +3,7 @@ import { KPICard } from "../components/KPICard";
 import { GraficoStatus } from "../components/GraficoStatus";
 import { GraficoEvolucao } from "../components/GraficoEvolucao";
 import { TabelaAgendamentos } from "../components/TabelaAgendamentos";
+import logo from '../assets/Logo.webp';
 
 export function Dashboard() {
   const { metricas, loading, error } = useMetricas();
@@ -10,6 +11,7 @@ export function Dashboard() {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
+        <img src={logo} alt="Logo Resende Mori hutchison" className="dashboard-logo" />
         <h1>⚖️ Painel Jurídico</h1>
         <span className="dashboard-subtitulo">Gestão de Atendimentos</span>
       </header>
