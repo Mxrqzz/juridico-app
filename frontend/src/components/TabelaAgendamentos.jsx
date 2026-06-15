@@ -100,21 +100,21 @@ export function TabelaAgendamentos() {
         <input
           className="input-busca"
           type="text"
-          placeholder="Buscar por cliente, advogado, CPF ou organização..."
+          placeholder="Buscar por cliente, advogado, CPF, organização ou área jurídica..."
           onChange={handleSearchChange}
         />
         <select onChange={(e) => updateFilter('realizado', e.target.value)} value={filters.realizado}>
-          <option value="todos">Todos os realizados</option>
+          <option value="todos">Situação</option>
           <option value="Sim">Realizado</option>
           <option value="Não">Não Realizado</option>
         </select>
         <select onChange={(e) => updateFilter('tipo', e.target.value)} value={filters.tipo}>
-          <option value="todos">Todos os tipos</option>
+          <option value="todos">Modalide</option>
           <option value="Online">Online</option>
           <option value="Presencial">Presencial</option>
         </select>
         <select onChange={(e) => updateFilter('status', e.target.value)} value={filters.status}>
-          <option value="todos">Todos os status</option>
+          <option value="todos">Status</option>
           <option value="Válido">Válido</option>
           <option value="Cancelado">Cancelado</option>
         </select>
