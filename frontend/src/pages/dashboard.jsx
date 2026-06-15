@@ -24,12 +24,12 @@ export function Dashboard() {
               cor="#4f8ef7"
             />
             <KPICard
-              titulo="Realizados"
+              titulo="Total Concluídos"
               valor={metricas.realizados}
               cor="#4CAF50"
             />
             <KPICard
-              titulo="Não Realizados"
+              titulo="Total Cancelados"
               valor={metricas.naoRealizados}
               cor="#f44336"
             />
